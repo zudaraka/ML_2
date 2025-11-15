@@ -1,27 +1,71 @@
-# Python
-venv/
+# =========================================================
+#  GITIGNORE FOR MLOPS CW2 PROJECT
+# =========================================================
+
+# -------------------------
+# Python cache files
+# -------------------------
 __pycache__/
+*.pyc
+*.pyo
 
-# MacOS
-.DS_Store
+# -------------------------
+# Virtual environment
+# -------------------------
+venv/
+env/
 
-# MLflow tracking
-mlruns/
-
-# Dataset (not allowed to upload)
-data/
-
-# Model files (large)
-outputs/*.keras
-outputs/*.h5
-outputs/history.json
-
-# Temp images
-temp.jpg
-tmp_input.jpg
-
-# Jupyter notebook checkpoints
+# -------------------------
+# Jupyter Notebook checkpoints
+# -------------------------
 .ipynb_checkpoints/
 
+# -------------------------
+# OS / Editor junk files
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Project Outputs (Do NOT Upload)
+# -------------------------
+outputs/
+mlruns/
+logs/
+
+# -------------------------
+# Dataset (Not Allowed to Upload)
+# -------------------------
+data/
+
+# -------------------------
+# Temporary images / examples
+# -------------------------
+temp.jpg
+tmp_input.jpg
+sample_images/
+*.png
+
+# -------------------------
+# Model files
+# -------------------------
+*.h5
+*.keras
+*.json
+
+# -------------------------
 # Docker
+# -------------------------
 *.log
+
+# -------------------------
+# Reports or unnecessary big files
+# -------------------------
+*.pdf
+*.zip
+
+# -------------------------
+# Local config
+# -------------------------
+*.cfg
+*.local
