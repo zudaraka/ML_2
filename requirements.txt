@@ -1,0 +1,8 @@
+tensorflow-macos
+tensorflow-metal
+mlflow
+fastapi
+uvicorn
+pillow
+scikit-learn
+python-multipart

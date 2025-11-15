@@ -1,0 +1,27 @@
+# Python
+venv/
+__pycache__/
+
+# MacOS
+.DS_Store
+
+# MLflow tracking
+mlruns/
+
+# Dataset (not allowed to upload)
+data/
+
+# Model files (large)
+outputs/*.keras
+outputs/*.h5
+outputs/history.json
+
+# Temp images
+temp.jpg
+tmp_input.jpg
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Docker
+*.log

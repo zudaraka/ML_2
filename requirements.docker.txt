@@ -1,0 +1,7 @@
+tensorflow==2.16.2
+mlflow
+fastapi
+uvicorn
+pillow
+scikit-learn
+python-multipart
