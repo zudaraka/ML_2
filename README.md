@@ -1,79 +1,62 @@
-# DL-MLOps-CW2
-
-**National Institute of Business Management**  
-Higher National Diploma in Data Science 24.2f  
-Machine Learning 02 – Course Work 2  
-
-**Title:** *Deep Learning Project using MLOps*
+# DL-MLOPS-CW2
+ 
+ **Title:** *Deep Learning Project Using MLOps*
 
 ---
 
-## 📌 Project Summary
+## 📌 Project Overview
 
-This project implements a Deep Learning image classification model and deploys it using MLOps principles.
+This project implements an **image classification system** using Deep Learning and integrates full **MLOps practices**, including:
 
-It includes:
+- Automated model training pipeline  
+- Data preprocessing (normalization & augmentation)  
+- Experiment tracking & model versioning via **MLflow**  
+- Custom model architecture support  
+- Continuous Integration with **GitHub Actions**  
+- Deployment using **FastAPI**  
+- Optional **Docker containerization**  
+- Model monitoring and drift checking  
 
-- Model training pipeline  
-- Data preprocessing  
-- MLflow experiment tracking & model versioning  
-- CI workflow  
-- FastAPI model deployment  
-- Optional Dockerization  
-- Model monitoring & experiment logging  
-
-This satisfies all requirements of the CW2 assignment.
+The implementation satisfies **all requirements** of the CW2 assignment.
 
 ---
 
 ## 📁 Repository Structure
 
-```
 DL-MLOPS-CW2/
-├── data/                     # train/val image folders (not pushed to GitHub)
-├── outputs/                  # model.keras, class_map.json, history.json (gitignored)
+├── data/                     # Training/validation datasets (not uploaded)
+├── outputs/                  # Saved model + metadata (gitignored)
 ├── src/
-│   ├── train.py              # training + MLflow pipeline
-│   ├── predict_api.py        # FastAPI model server
-│   └── model_defs.py         # custom model builder (optional)
-├── mlruns/                   # MLflow experiment logs
-├── .github/workflows/ci.yml  # GitHub Actions CI workflow
+│   ├── train.py              # Training pipeline with MLflow
+│   ├── predict_api.py        # FastAPI inference server
+│   └── model_defs.py         # Custom model builder
+├── mlruns/                   # MLflow experiment tracking (gitignored)
+├── .github/workflows/ci.yml  # CI pipeline
 ├── requirements.txt
-├── README.md
-└── .gitignore
-```
+├── requirements.docker.txt
+├── Dockerfile
+├── lab2_3_dl_hnd242f_08,33,34.ipynb
+└── README.md
 
 ---
 
-## 🔧 Setup Instructions
+## 🔧 Environment Setup
 
 ### 1️⃣ Create Virtual Environment
-
-```bash
 python3 -m venv venv
 source venv/bin/activate
-```
 
 ### 2️⃣ Install Dependencies
-
-```bash
 pip install --upgrade pip
 pip install -r requirements.txt
-```
 
-> **For macOS M1/M2 users:**
-
-```bash
+### ⚠️ For M1/M2 Macs
 pip install tensorflow-macos tensorflow-metal
-```
 
 ---
 
-## 🗂️ Dataset Structure
+## 🗂️ Dataset Format
 
-Your dataset should follow this structure:
-
-```
 data/
 ├── train/
 │   ├── classA/
@@ -81,127 +64,100 @@ data/
 └── val/
     ├── classA/
     └── classB/
-```
 
 ---
 
-## 🧠 Model Training (with MLflow)
+## 🧠 Model Training (MLflow Integrated)
 
 Run training:
-
-```bash
-source venv/bin/activate
 python src/train.py --data-dir data --epochs 5 --batch-size 8 --img-size 224 --run-name final_run
-```
 
-This will:
+This saves:
+- outputs/model.keras
+- outputs/class_map.json
+- outputs/history.json
 
-✔ Train the model  
-✔ Save model → `outputs/model.keras`  
-✔ Save class mapping → `outputs/class_map.json`  
-✔ Log experiments into **MLflow**
+And logs to MLflow.
 
 ---
 
-## 📊 View MLflow Dashboard
+## 📊 Start MLflow Dashboard
 
-Start MLflow UI:
-
-```bash
 mlflow ui --backend-store-uri mlruns --port 5000
-```
 
-Open in browser:  
-👉 http://127.0.0.1:5000
-
-You will see:
-
-- Training metrics  
-- Parameters  
-- Model versions  
-- Artifacts  
+Open:
+http://127.0.0.1:5000
 
 ---
 
-## 🚀 Run FastAPI Model Server
+## 🚀 FastAPI Deployment
 
-### Start API
+Start server:
+uvicorn src.predict_api:app --host 127.0.0.1 --port 8000
 
-```bash
-python -m uvicorn src.predict_api:app --host 127.0.0.1 --port 8000
-```
-
-### Health Check
-
-```bash
+Health check:
 curl -i http://127.0.0.1:8000/health
-```
 
-### Make a Prediction
-
-```bash
+Prediction:
 curl -X POST "http://127.0.0.1:8000/predict" \
 -F "file=@data/val/classA/classA_0.png" -i
-```
 
 ---
 
-## 🔁 CI/CD Pipeline (GitHub Actions)
+## 🔁 CI/CD (GitHub Actions)
 
-Included workflow:
-
-```
+Workflow file:
 .github/workflows/ci.yml
-```
 
-It performs:
-
-- Code checkout  
+Runs:
 - Dependency installation  
-- Quick CI smoke test  
+- Basic tests  
+- CI smoke check  
 
 ---
 
-## 🐳 Docker (Optional Containerization)
+## 🐳 Docker Deployment (Optional)
 
-Build the Docker image:
-
-```bash
+Build the image:
 docker build -t dl-mlops-cw2 .
-```
 
 Run the container:
-
-```bash
 docker run -p 8000:8000 dl-mlops-cw2
-```
 
 ---
 
 ## 📈 Model Monitoring
 
-- MLflow is used to track all experiments  
-- Compare validation accuracy across runs to detect model drift  
-- Re-train model if accuracy drops on new data  
+- Compare experiment runs in MLflow  
+- Detect model drift  
+- Retrain model when accuracy drops  
 
 ---
 
-## 📘 What To Submit
+## 📘 Submission Checklist
 
 ✔ Jupyter Notebook report  
-✔ GitHub repository link  
+✔ GitHub repo link  
 ✔ 5-minute demonstration video  
-✔ This README.md  
-✔ All code + workflows  
+✔ README.md (this file)  
+✔ All source code  
 
 ---
 
-## 📞 Notes
-
-If TensorFlow gives macOS errors:
-
-```bash
+## 💡 Mac TensorFlow Fix
 pip install tensorflow-macos tensorflow-metal
-```
 
 ---
+
+## 🎉 Completed MLOps Workflow
+
+This project demonstrates:
+
+- End-to-end ML lifecycle  
+- Automated pipelines  
+- Deployment  
+- Monitoring  
+- Experiment tracking  
+- Reproducibility  
+
+Fully compliant with CW2 evaluation criteria.
